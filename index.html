@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transiciones CSS Avanzadas | Semana 10</title>
+  <meta name="description" content="Laboratorio responsivo de transiciones CSS: 3D, clip-path, stagger, temas y microinteracciones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Controles globales CSS-only (checkbox hack) -->
+  <input type="checkbox" id="theme-toggle" class="sr-only" aria-label="Cambiar tema">
+  <input type="checkbox" id="nav-toggle" class="sr-only" aria-label="Abrir menú">
+
+  <div class="page">
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__orb ambient__orb--1"></span>
+      <span class="ambient__orb ambient__orb--2"></span>
+      <span class="ambient__orb ambient__orb--3"></span>
+    </div>
+
+    <header class="header">
+      <div class="container header__inner">
+        <a href="#inicio" class="logo">
+          <span class="logo__mark" aria-hidden="true"></span>
+          <span class="logo__text">CSS<span>Lab</span></span>
+        </a>
+
+        <label for="nav-toggle" class="burger" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </label>
+
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#inicio" class="nav__link" style="--i:0">Inicio</a>
+          <a href="#lab" class="nav__link" style="--i:1">Laboratorio</a>
+          <a href="#3d" class="nav__link" style="--i:2">3D Flip</a>
+          <a href="#timing" class="nav__link" style="--i:3">Timing</a>
+          <a href="#morph" class="nav__link" style="--i:4">Morph</a>
+          <a href="#contacto" class="nav__link" style="--i:5">Contacto</a>
+        </nav>
+
+        <div class="header__actions">
+          <label for="theme-toggle" class="theme-switch" title="Tema claro / oscuro">
+            <span class="theme-switch__track">
+              <span class="theme-switch__thumb"></span>
+            </span>
+            <span class="theme-switch__label">Tema</span>
+          </label>
+          <a href="#lab" class="btn btn--compact">Explorar</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="inicio" class="hero">
+        <div class="container hero__grid">
+          <div class="hero__content">
+            <p class="hero__eyebrow">
+              <span class="pulse-dot"></span>
+              Semana 10 · CSS Avanzado · UTP
+            </p>
+            <h1 class="hero__title">
+              <span class="hero__line" style="--i:0">Transiciones</span>
+              <span class="hero__line hero__line--accent" style="--i:1">web con CSS</span>
+            </h1>
+            <p class="hero__text">
+              Laboratorio responsivo que combina <code>transition</code>,
+              <code>transform</code> 3D, <code>clip-path</code>, retrasos escalonados
+              y cambio de tema — sin JavaScript.
+            </p>
+            <div class="hero__actions">
+              <a href="#lab" class="btn btn--primary">
+                <span>Abrir laboratorio</span>
+                <span class="btn__shine" aria-hidden="true"></span>
+              </a>
+              <a href="#3d" class="btn btn--ghost">Ver flip 3D</a>
+            </div>
+            <ul class="hero__stats">
+              <li style="--i:0"><strong>12+</strong><span>efectos</span></li>
+              <li style="--i:1"><strong>0</strong><span>JS</span></li>
+              <li style="--i:2"><strong>100%</strong><span>CSS</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="orbit">
+              <div class="orbit__ring orbit__ring--1"></div>
+              <div class="orbit__ring orbit__ring--2"></div>
+              <div class="orbit__core">
+                <span>transition</span>
+              </div>
+              <span class="orbit__sat orbit__sat--a">ease</span>
+              <span class="orbit__sat orbit__sat--b">3D</span>
+              <span class="orbit__sat orbit__sat--c">clip</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAB: tarjetas avanzadas -->
+      <section id="lab" class="section">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">Laboratorio de propiedades</h2>
+            <p class="section__lead">Hover en cada tarjeta. Los hijos usan <code>transition-delay</code> escalonado.</p>
+          </header>
+
+          <div class="lab-grid">
+            <article class="lab-card" style="--i:0">
+              <div class="lab-card__icon">◐</div>
+              <h3>Color &amp; superficie</h3>
+              <p>Fondo, borde y tipografía cambian juntos con la misma curva.</p>
+              <code class="lab-card__code">background · border-color · color</code>
+              <span class="lab-card__glow"></span>
+            </article>
+
+            <article class="lab-card lab-card--lift" style="--i:1">
+              <div class="lab-card__icon">↑</div>
+              <h3>Elevación</h3>
+              <p><code>translateY</code> + sombra multicapa para profundidad.</p>
+              <code class="lab-card__code">transform · box-shadow</code>
+              <span class="lab-card__glow"></span>
+            </article>
+
+            <article class="lab-card lab-card--scale" style="--i:2">
+              <div class="lab-card__icon">⛶</div>
+              <h3>Escala &amp; blur</h3>
+              <p>El icono crece; el fondo aplica <code>backdrop-filter</code>.</p>
+              <code class="lab-card__code">scale · filter</code>
+              <span class="lab-card__glow"></span>
+            </article>
+
+            <article class="lab-card lab-card--skew" style="--i:3">
+              <div class="lab-card__icon">⟋</div>
+              <h3>Skew sutil</h3>
+              <p>Inclinación suave con origen en el centro.</p>
+              <code class="lab-card__code">skewX · transform-origin</code>
+              <span class="lab-card__glow"></span>
+            </article>
+
+            <article class="lab-card lab-card--stagger" style="--i:4">
+              <div class="lab-card__icon">⋮</div>
+              <h3>Stagger delay</h3>
+              <div class="stagger">
+                <span style="--d:0">A</span>
+                <span style="--d:1">B</span>
+                <span style="--d:2">C</span>
+                <span style="--d:3">D</span>
+              </div>
+              <code class="lab-card__code">transition-delay: calc(n * 60ms)</code>
+              <span class="lab-card__glow"></span>
+            </article>
+
+            <article class="lab-card lab-card--border" style="--i:5">
+              <div class="lab-card__icon">◇</div>
+              <h3>Borde animado</h3>
+              <p>El pseudo-elemento dibuja un contorno con <code>scaleX/Y</code>.</p>
+              <code class="lab-card__code">::before · transform</code>
+              <span class="lab-card__glow"></span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3D FLIP -->
+      <section id="3d" class="section section--alt">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">Tarjetas 3D Flip</h2>
+            <p class="section__lead"><code>perspective</code> + <code>rotateY</code> con transición de 0.7s.</p>
+          </header>
+
+          <div class="flip-grid">
+            <div class="flip" style="--i:0">
+              <div class="flip__inner">
+                <div class="flip__face flip__face--front">
+                  <span class="flip__badge">Frente</span>
+                  <h3>cubic-bezier</h3>
+                  <p>Curvas personalizadas controlan la aceleración.</p>
+                </div>
+                <div class="flip__face flip__face--back">
+                  <span class="flip__badge">Reverso</span>
+                  <h3>0.22, 1, 0.36, 1</h3>
+                  <p>Ease-out elástico. Ideal para UI premium.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip" style="--i:1">
+              <div class="flip__inner">
+                <div class="flip__face flip__face--front">
+                  <span class="flip__badge">Frente</span>
+                  <h3>will-change</h3>
+                  <p>Optimiza capas para transformaciones fluidas.</p>
+                </div>
+                <div class="flip__face flip__face--back">
+                  <span class="flip__badge">Reverso</span>
+                  <h3>GPU friendly</h3>
+                  <p>Prefiere <code>transform</code> y <code>opacity</code>.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flip" style="--i:2">
+              <div class="flip__inner">
+                <div class="flip__face flip__face--front">
+                  <span class="flip__badge">Frente</span>
+                  <h3>prefers-reduced-motion</h3>
+                  <p>Respeta accesibilidad del sistema.</p>
+                </div>
+                <div class="flip__face flip__face--back">
+                  <span class="flip__badge">Reverso</span>
+                  <h3>Accesible</h3>
+                  <p>Las transiciones se reducen o desactivan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIMING + PROGRESS -->
+      <section id="timing" class="section">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">Timing functions</h2>
+            <p class="section__lead">Misma distancia, distinta sensación. Compara las curvas.</p>
+          </header>
+
+          <div class="timing">
+            <div class="timing__track">
+              <button class="timing__btn timing__btn--ease" type="button">ease</button>
+              <button class="timing__btn timing__btn--linear" type="button">linear</button>
+              <button class="timing__btn timing__btn--in" type="button">ease-in</button>
+              <button class="timing__btn timing__btn--out" type="button">ease-out</button>
+              <button class="timing__btn timing__btn--back" type="button">cubic-bezier</button>
+            </div>
+
+            <div class="meters">
+              <div class="meter">
+                <div class="meter__top">
+                  <span>Carga simulada</span>
+                  <span class="meter__value">35% → 100%</span>
+                </div>
+                <div class="meter__bar"><i></i></div>
+              </div>
+              <div class="meter">
+                <div class="meter__top">
+                  <span>Anillo SVG</span>
+                  <span class="meter__value">stroke-dashoffset</span>
+                </div>
+                <div class="ring">
+                  <svg viewBox="0 0 120 120" aria-hidden="true">
+                    <circle class="ring__bg" cx="60" cy="60" r="52"></circle>
+                    <circle class="ring__fg" cx="60" cy="60" r="52"></circle>
+                  </svg>
+                  <span class="ring__label">92%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MORPH / CLIP-PATH / ACCORDION -->
+      <section id="morph" class="section section--alt">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">Morph &amp; revelado</h2>
+            <p class="section__lead"><code>clip-path</code>, border-radius líquido y acordeón con <code>grid-template-rows</code>.</p>
+          </header>
+
+          <div class="morph-layout">
+            <div class="reveal">
+              <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=520&fit=crop" alt="Laptop con código" width="800" height="520">
+              <div class="reveal__mask">
+                <span>clip-path: inset()</span>
+              </div>
+            </div>
+
+            <div class="blob-wrap">
+              <div class="blob">
+                <span>border-radius<br>morph</span>
+              </div>
+              <p>Hover para transformar la forma orgánica.</p>
+            </div>
+
+            <div class="accordion">
+              <details class="acc" open>
+                <summary>¿Qué es una transición CSS?</summary>
+                <div class="acc__body">
+                  <p>Interpola el cambio de una propiedad entre dos estados (por ejemplo <code>:hover</code>) durante un tiempo definido.</p>
+                </div>
+              </details>
+              <details class="acc">
+                <summary>¿Transition vs animation?</summary>
+                <div class="acc__body">
+                  <p>Transition responde a un cambio de estado. Animation usa <code>@keyframes</code> y puede repetirse sin interacción.</p>
+                </div>
+              </details>
+              <details class="acc">
+                <summary>¿Qué propiedades conviene animar?</summary>
+                <div class="acc__body">
+                  <p>Prioriza <code>transform</code> y <code>opacity</code>. Evita animar <code>width/height/top</code> cuando sea posible.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" class="section">
+        <div class="container contact">
+          <header class="section__head">
+            <h2 class="section__title">Contacto interactivo</h2>
+            <p class="section__lead">Inputs con foco expandido, label flotante y botón con shine.</p>
+          </header>
+
+          <form class="form" action="#" method="get">
+            <label class="float-field">
+              <input type="text" name="nombre" placeholder=" " required>
+              <span>Nombre completo</span>
+            </label>
+            <label class="float-field">
+              <input type="email" name="correo" placeholder=" " required>
+              <span>Correo institucional</span>
+            </label>
+            <label class="float-field float-field--area">
+              <textarea name="mensaje" rows="4" placeholder=" " required></textarea>
+              <span>Mensaje</span>
+            </label>
+            <button class="btn btn--primary btn--wide" type="submit">
+              <span>Enviar mensaje</span>
+              <span class="btn__shine" aria-hidden="true"></span>
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p>UTP · CICLO 6 · Hojas de Estilo en Cascada Avanzado · Semana 10</p>
+        <p class="footer__hint">Pasa el cursor · cambia el tema · abre el menú en móvil</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
